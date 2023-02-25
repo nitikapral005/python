@@ -1,0 +1,137 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Theme Made By www.w3schools.com - No Copyright -->
+    <title>Index</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+      .h1 {
+        color: red;
+        background-color: aquamarine;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="javascript:void(0)">Logo</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mynavbar"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mynavbar">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="javascript:void(0)">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="javascript:void(0)">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="javascript:void(0)">Services</a>
+            </li>
+            {% if request.user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{%url 'logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{%url 'register'%}">Signup</a>
+            </li>
+            {% endif %}
+          </ul>
+          <form class="d-flex">
+            <input class="form-control me-2" type="text" placeholder="Search" />
+            <button class="btn btn-primary" type="button">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <h1 class="h1"><center>Weclome to Python programming</center></h1>
+    {%block content%}
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4">
+          <h2 class="alert alert-danger">Add Student</h2>
+
+          <a href="#">click here</a>
+          <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %} {{fr.as_p}}
+            <input type="submit" ,class="btn btn-warning" value="add" />
+          </form>
+        </div>
+        <div class="col-sm-8">
+          <h3 class="text-center alert alert-success">STUDENTS INFORMATION</h3>
+
+          <h2>Table</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Password</th>
+                
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {%for i in st%}
+              <tr>
+                <th>{{i.id}}</th>
+                <td>{{i.username}}</td>
+                <td>{{i.email}}</td>
+                 <td>{{i.password}}</td>
+                
+                <td>
+                  {% if i.image %}<img
+                    src="{{ i.image.url}}"
+                    height="64"
+                    width="64"
+                  />
+                  {% endif %}
+                </td>
+                <td>
+                  <div style="display: flex; gap: 10px">
+                    <a
+                      href="{%url 'update_data' i.id %}"
+                      class="btn btn-warning btn-sm"
+                      >Edit</a
+                    >
+                    <form
+                      action="{% url 'delete_data' i.id %}"
+                      method="post"
+                      class="d-inline"
+                    >
+                      {% csrf_token %}
+                      <input
+                        type="submit"
+                        class="btn btn-danger btn-sm"
+                        value="Delete"
+                      />
+                    </form>
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      {% endblock %}
+    </div>
+  </body>
+</html>

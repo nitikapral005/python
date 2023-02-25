@@ -1,0 +1,28 @@
+{%extends 'next.html' %}
+
+{% block content %}
+<div class ="row">
+    <div class ="col-sm-3"></div>
+    <div class ="col-sm-6">
+        <h3 class="alert alert-success text center">Update student</h3>
+        <form action="" method ="POST">{% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="username" name= "Username" class="form-control" id="username" value ={{st.username}}>
+            </div>
+            <div class="form-group">    
+              <label for="email">Email address:</label>
+              <input type="email" name="email" class="form-control" id="email" value ={{st.email}}>
+            </div>
+            <div class="form-group">
+              <label for="pwd">Password:</label>
+              <input type="password"name="pwd" class="form-control" id="pwd" value ={{st.password}}>
+            </div>
+
+            <button type="submit" class="btn btn-default">Update</button>
+          </form>
+        </div>  
+        <div class="col-sm-3"></div>
+    </div>
+  </div>        
+{%endblock%}

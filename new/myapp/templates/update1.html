@@ -1,0 +1,17 @@
+{%extends 'index.html'%}
+ {% block content %}
+
+<div class="row">
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4">
+    <h3 class="alert alert-success">Update Student</h3>
+    <form action="" method="POST">
+      {% csrf_token %} {{fr.as_p}}
+      <input type="submit" class="btn btn-warning" value="update" />
+      <a href="" class="btn btn-primary">Back</a>
+    </form>
+  </div>
+  <div class="col-sm-4"></div>
+
+  {%endblock%}
+</div>
